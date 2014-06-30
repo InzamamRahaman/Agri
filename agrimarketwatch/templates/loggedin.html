@@ -1,0 +1,59 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>AgriViz Platform</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/metro-bootstrap.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/metro-bootstrap-responsive.css') }}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='css/nv.d3.css')}}" />
+
+    <!-- Javascript to load-->
+    <script src="{{url_for('static', filename='js/jquery.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.mouswheel.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.widget.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery-ui-1.10.4.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/d3.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/d3.v3.js')}}"></script>
+    <script src="{{url_for('static', filename='js/nv.d3.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/metro.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/metro-core.js')}}"></script>
+    <script src="{{url_for('static', filename='js/lodash.js')}}"></script>
+    <script src="{{url_for('static', filename='js/metro-dropdown.js')}}"></script>
+    <script src="{{url_for('static', filename='js/metro-date-format.js')}}"></script>
+    <script src="{{url_for('static', filename='js/metro-datepicker.js')}}"></script>
+    <script src="{{url_for('static', filename='js/metro-calendar.js')}}"></script>
+</head>
+<body class="metro">
+    
+    <!--  Code for the top navigation bar goes here  -->
+
+    <nav class="navigation-bar dark">
+        <div class="navigation-bar-content container">
+            <div class="pull-right">
+                <!-- Charting options come here -->
+                <ul class="element-menu">
+                    <li><a class="element" href="{{url_for('lineCharts')}}">PIE CHARTS</a></li>
+                    <li><a class="element" href="{{url_for('lineCharts')}}">LINE GRAPHS</a></li>
+                    <li><a class="element" href="{{url_for('barCharts')}}">BAR CHARTS</a></li>
+                    <li><a class="element" href="{{ url_for('contact') }}">CONTACT US</a></li>
+                    <li><a class="element" href="{{ url_for('about') }}">ABOUT US</a></li>
+                    <li><a class="element" href="{{url_for('home')}}">HOME PAGE</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+
+    <div id="some">
+
+    </div>
+
+    {% block content %}
+
+    {% endblock %}
+    
+
+</body>
+
+</html>

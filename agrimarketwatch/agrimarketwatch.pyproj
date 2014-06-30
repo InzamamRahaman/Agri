@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{56f90a26-78fd-4a2e-a90f-ded5692a2dee}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>agrinet.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <InterpreterId>{2af0f10d-7135-4994-9156-5d01c9c11b7e}</InterpreterId>
+    <InterpreterVersion>2.7</InterpreterVersion>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <ItemGroup>
+    <Content Include="static\css\nv.d3.css" />
+    <Content Include="static\fonts\iconFont.dev.svg" />
+    <Content Include="static\fonts\iconFont.eot" />
+    <Content Include="static\fonts\iconFont.json" />
+    <Content Include="static\fonts\iconFont.svg" />
+    <Content Include="static\fonts\iconFont.ttf" />
+    <Content Include="static\fonts\iconFont.woff" />
+    <Content Include="static\fonts\metroSysIcons.svg" />
+    <Content Include="static\fonts\metroSysIcons.ttf" />
+    <Content Include="static\fonts\metroSysIcons.woff" />
+    <Content Include="static\js\d3.v3.js" />
+    <Content Include="static\js\jquery-1.10.2.js" />
+    <Content Include="static\js\jquery-ui-1.10.4.min.js" />
+    <Content Include="static\js\jquery.js" />
+    <Content Include="static\js\jquery.mouswheel.js" />
+    <Content Include="static\js\jquery.widget.min.js" />
+    <Content Include="static\js\metro-accordion.js" />
+    <Content Include="static\js\metro-button-set.js" />
+    <Content Include="static\js\metro-calendar.js" />
+    <Content Include="static\js\metro-carousel.js" />
+    <Content Include="static\js\metro-core.js" />
+    <Content Include="static\js\metro-countdown.js" />
+    <Content Include="static\js\metro-date-format.js" />
+    <Content Include="static\js\metro-datepicker.js" />
+    <Content Include="static\js\metro-dialog.js" />
+    <Content Include="static\js\metro-drag-tile.js" />
+    <Content Include="static\js\metro-dropdown.js" />
+    <Content Include="static\js\metro-fluentmenu.js" />
+    <Content Include="static\js\metro-global.js" />
+    <Content Include="static\js\metro-hint.js" />
+    <Content Include="static\js\metro-initiator.js" />
+    <Content Include="static\js\metro-input-control.js" />
+    <Content Include="static\js\metro-listview.js" />
+    <Content Include="static\js\metro-live-tile.js" />
+    <Content Include="static\js\metro-loader.js" />
+    <Content Include="static\js\metro-locale.js" />
+    <Content Include="static\js\metro-notify.js" />
+    <Content Include="static\js\metro-panel.js" />
+    <Content Include="static\js\metro-plugin-template.js" />
+    <Content Include="static\js\metro-progressbar.js" />
+    <Content Include="static\js\metro-pull.js" />
+    <Content Include="static\js\metro-rating.js" />
+    <Content Include="static\js\metro-scroll.js" />
+    <Content Include="static\js\metro-slider.js" />
+    <Content Include="static\js\metro-stepper.js" />
+    <Content Include="static\js\metro-streamer.js" />
+    <Content Include="static\js\metro-tab-control.js" />
+    <Content Include="static\js\metro-table.js" />
+    <Content Include="static\js\metro-tile-transform.js" />
+    <Content Include="static\js\metro-times.js" />
+    <Content Include="static\js\metro-touch-handler.js" />
+    <Content Include="static\js\metro-treeview.js" />
+    <Content Include="static\js\metro-wizard.js" />
+    <Content Include="static\js\metro.min.js" />
+    <Content Include="static\js\myscripts\lineCharts.js" />
+    <Content Include="static\js\nv.d3.min.js" />
+    <Content Include="static\js\README.md" />
+    <Content Include="static\js\test.js" />
+    <Content Include="static\js\vendor\d3.v3.js" />
+    <Content Include="templates\contact.html" />
+    <Content Include="templates\js\vendor\stackedOld.js" />
+    <Content Include="templates\LineCharts.html" />
+    <Content Include="templates\loggedin.html" />
+    <Content Include="templates\login.html" />
+    <Content Include="requirements.txt" />
+    <Compile Include="agrinet.py" />
+    <Compile Include="fetcher.py" />
+    <Compile Include="Form.py" />
+    <Compile Include="importer.py" />
+    <Content Include="static\css\metro-bootstrap-responsive.css" />
+    <Content Include="static\css\metro-bootstrap.css" />
+    <Content Include="templates\about.html" />
+    <Content Include="templates\css\metro-bootstrap-responsive.css" />
+    <Content Include="templates\css\metro-bootstrap.css" />
+    <Content Include="templates\index.html" />
+    <Content Include="templates\layout.html" />
+    <Content Include="templates\line_vizualizations.html" />
+    <Content Include="templates\main.html" />
+    <Content Include="templates\pie chart.html" />
+    <Content Include="templates\line_chart.js" />
+    <Content Include="templates\pieCharts.html" />
+    <Content Include="templates\stackedBarCharts.html" />
+    <Content Include="templates\temp.js" />
+    <Content Include="static\css\bootstrap-theme.css" />
+    <Content Include="static\css\bootstrap-theme.min.css" />
+    <Content Include="static\css\bootstrap.css" />
+    <Content Include="static\css\bootstrap.min.css" />
+    <Content Include="static\css\contour.min.css" />
+    <Content Include="static\css\main.css" />
+    <Content Include="static\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="static\js\contour.min.js" />
+    <Content Include="static\js\d3.min.js" />
+    <Content Include="static\js\lodash.js" />
+    <Content Include="static\js\main.js" />
+    <Content Include="static\js\vendor\bootstrap.js" />
+    <Content Include="static\js\vendor\bootstrap.min.js" />
+    <Content Include="static\js\vendor\jquery-1.11.0.min.js" />
+    <Content Include="static\js\vendor\modernizr-2.6.2-respond-1.1.0.min.js" />
+    <Content Include="templates\css\bootstrap-theme.css" />
+    <Content Include="templates\css\bootstrap-theme.min.css" />
+    <Content Include="templates\css\bootstrap.css" />
+    <Content Include="templates\css\bootstrap.min.css" />
+    <Content Include="templates\css\contour.min.css" />
+    <Content Include="templates\css\main.css" />
+    <Content Include="templates\css\nvd3.css" />
+    <Content Include="templates\d3\d3.js" />
+    <Content Include="templates\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="templates\js\contour.min.js" />
+    <Content Include="templates\js\d3.min.js" />
+    <Content Include="templates\js\d3.v3.js" />
+    <Content Include="templates\js\jquery.js" />
+    <Content Include="templates\js\lodash.js" />
+    <Content Include="templates\js\main.js" />
+    <Content Include="templates\vizulization tests\Untitled-1.html" />
+    <Content Include="templates\vizulization tests\my_styles.css" />
+    <Content Include="templates\contour-all\contour\contour.css" />
+    <Content Include="templates\contour-all\contour\contour.js" />
+    <Content Include="templates\contour-all\contour-connectors\contour.connectors.js" />
+    <Content Include="templates\contour-all\contour-connectors\contour.connectors.min.js" />
+    <Content Include="templates\js\vendor\bootstrap.js" />
+    <Content Include="templates\js\vendor\bootstrap.min.js" />
+    <Content Include="templates\js\vendor\jquery-1.11.0.min.js" />
+    <Content Include="templates\js\vendor\modernizr-2.6.2-respond-1.1.0.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="static\" />
+    <Folder Include="static\css" />
+    <Folder Include="static\fonts" />
+    <Folder Include="static\js" />
+    <Folder Include="static\js\myscripts\" />
+    <Folder Include="static\js\vendor" />
+    <Folder Include="templates" />
+    <Folder Include="templates\contour-all\" />
+    <Folder Include="templates\contour-all\contour" />
+    <Folder Include="templates\contour-all\contour-connectors" />
+    <Folder Include="templates\css" />
+    <Folder Include="templates\d3" />
+    <Folder Include="templates\fonts" />
+    <Folder Include="templates\js" />
+    <Folder Include="templates\js\vendor" />
+    <Folder Include="templates\vizulization tests" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterpreterReference Include="{2af0f10d-7135-4994-9156-5d01c9c11b7e}\2.7" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+</Project>

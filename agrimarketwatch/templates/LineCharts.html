@@ -1,0 +1,169 @@
+{% extends "loggedin.html" %}
+{% block content %}
+
+<script>
+
+    
+    var current_chart = null;
+    var data = {};
+    var currently_plotting = new Array()
+    var names = new Array()
+
+    var render = function(plotting_entries)
+    {
+        
+
+        
+        nv.addGraph(function () {
+            console.log('Starting to render....');
+            var chart = nv.models.lineChart()
+                   .margin({ left: 100 })  //Adjust chart margins to give the x-axis some breathing room.
+                   .useInteractiveGuideline(true)  //We want nice looking tooltips and a guideline!
+                   .transitionDuration(350)  //how fast do you want the lines to transition?
+                   .showLegend(true)       //Show the legend, allowing users to turn on/off line series.
+                   .showYAxis(true)        //Show the y-axis
+                   .showXAxis(true);        //Show the x-axis
+            chart.xAxis.axisLabel('Time').tickFormat(function (d)
+                { return d3.time.format.utc('%x')(new Date(d)) });
+            chart.yAxis.axisLabel('Price').tickFormat(d3.format(',2f'));
+
+
+
+            current_chart = chart;
+            d3.select('#lineChart svg').datum(plotting_entries).call(chart);
+            //Select the <svg> element you want to render the chart in.   
+            //Populate the <svg> element with chart data...
+            //Finally, render the chart! 
+            console.log('Logging chart.....')
+            console.log(chart);
+            return chart;
+        }); 
+    }
+
+    var plot_all = function()
+    {
+        // Get the mean prices for all crops we are going to plant
+        var plotting_entries = new Array();
+        // Prepare the dataset for plotting
+        for(var idx = 0; idx < currently_plotting.length; idx++)
+        {
+            
+            plotting_entries.push({ values: data[currently_plotting[idx]], key: currently_plotting[idx] });
+            console.log({ values: data[currently_plotting[idx]], key: currently_plotting[idx] });
+        }
+
+        render(plotting_entries);
+
+        
+    }
+
+    var plot_crop = function (name, value)
+    {
+        console.log(name + ", " + value);
+        var cls = $(name).attr('class');
+        
+        // If this crop is not being actively considered, then we begin to consider it
+        if(cls != 'active')
+        {
+            $(name).attr('class', 'active');
+            // If we have not requested the data for this crop yet
+            if(data[value] === undefined)
+            {
+
+                
+
+                var xhr = new XMLHttpRequest();
+
+                xhr.onreadystatechange = function ()
+                {
+                    if (xhr.readyState == 4 && xhr.status == 200)
+                    {
+                        currently_plotting.push(value);
+
+                        var txt = xhr.responseText;
+                        var repr = eval(txt);
+                        // Extract the date and mean price from the returned JSON
+                        repr = _.filter(repr, function (entry) { return entry.commodity == value });
+                        var valid = _.map(repr, function (entry) { return { y: entry.mean, x: new Date(entry.date) } })
+                        valid = _.filter(valid, function (v) { return v.y != 'na' || v.y != "NA" });
+                        data[value] = valid;
+                        console.log(valid);
+                        console.log('Cached data for ' + value);
+                        plot_all();
+                    }
+                }
+                xhr.open('GET', 'http://127.0.0.1:5000/crops/monthly/all')
+                //xhr.open('GET', 'http://127.0.0.1:5000/crops/monthly/commodity/' + value);
+                xhr.send()
+            }
+            
+        }
+        else
+        {
+            $(name).attr('class', '');
+            var idx = currently_plotting.indexOf(value);
+            currently_plotting.splice(idx, 1) // Remove this value from the array of plotted
+            plot_all();
+        }
+
+    }
+
+    /*
+    var data = null;
+    var data_loaded = false;
+    var xhr = new XMLHttpRequest()
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            data = eval(xhr.responseText);
+            data_loaded = true;
+            console.log(data)
+        }
+    }
+
+    xhr.open('GET', 'http://127.0.0.1:5000/crops/monthly/all')
+    xhr.send() */
+</script>
+<div class="grid">
+    <div class="row">
+        <!-- Place code for crop option panels here -->
+        <div class="span4">
+            <nav class="sidebar dark">
+                <ul>
+                    <li class="title">Crops</li>
+                    {% for key, value in crops.iteritems() %}
+                    <li id="{{value}}"><a onclick="plot_crop('#{{value}}', '{{key}}')" href="#">{{key}}</a></li>
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Code for date selection forms here -->
+        <div class="span8">
+
+            <!-- From date picker -->
+            
+                From 
+                <div class="input-control text datepicker" data-other-days="1" data-effect="slide" data-role="datepicker" data-week-start="0">
+                    <input type="text" readonly="readonly">
+                    <button class="btn-date"></button>
+                </div>
+
+                To
+                <div class="input-control text datepicker" data-other-days="1" data-effect="slide" data-role="datepicker" data-week-start="0">
+                    <input type="text" readonly="readonly">
+                    <button class="btn-date"></button>
+                </div>
+            
+            <div id="lineChart">
+                <svg style="height:500px">
+
+                </svg>
+            </div>
+           
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "index.html" %}
+{% block content %}
+    
+    <div class="span7 offset4">
+        <form action="" method="post" name="contact">
+
+            {{form.hidden_tag()}}
+
+            <p>
+                Email Address <br />
+                {{form.email}}
+            </p>
+
+            <p>
+                Message <br />
+                {{form.message}}
+            </p>
+
+            <p>
+                <input type="submit" value="SEND" />
+            </p>
+
+        </form>    
+    </div>
+
+{% endblock %}

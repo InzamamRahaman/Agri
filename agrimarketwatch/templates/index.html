@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <title>AgriViz Platform</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/metro-bootstrap.css') }}"  />
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/metro-bootstrap-responsive.css') }}" />
+   </head>
+
+    <body class="metro">
+        <!--  Code for the top navigation bar goes here  -->
+        
+        <nav class="navigation-bar dark">
+            <div class="navigation-bar-content">
+                <div class="pull-right">
+                    <a class="element" id="contact_link" href="{{ url_for('contact') }}">CONTACT US</a>
+                    <a class="element" id="about_us_link" href="{{ url_for('about') }}">ABOUT US</a>
+                    <a class="element" id="home_page_link" href="{{url_for('home')}}">HOME PAGE</a>
+                </div>
+                
+            </div>
+        </nav>
+
+        {% block content %}
+        
+        {% endblock %}
+
+    </body>
+
+    
+
+</html>
+

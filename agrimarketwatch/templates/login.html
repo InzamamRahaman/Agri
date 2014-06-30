@@ -1,0 +1,15 @@
+{% extends "index.html" %}
+
+{% block content %}
+<!-- The Form to enable logins is here  -->
+<form action="" method="post" name="login">
+    {{form.hidden_tag()}}
+    <p>
+        OpenID: <br />
+        {{form.openid(size=80)}}
+    </p>
+    <p>Remember Me? {{form.remember_me}}</p>
+    <p><input type="submit" value="Sign In" /></p>
+</form>
+
+{% endblock %}

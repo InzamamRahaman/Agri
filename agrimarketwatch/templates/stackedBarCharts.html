@@ -1,0 +1,168 @@
+{% extends "loggedin.html" %}
+{% block content %}
+<script>
+
+    
+
+        // Helper functions
+        var fn = function (x, f) {
+            return f(x);
+        }
+
+        var mean = function (xs, key) {
+            var ys = _.map(xs, function(e) {return e[key]});
+            var sum = _.reduce(ys, function (x, y) { return x + y }, 0);
+            return sum / ys.length;
+        }
+
+        var apply_across = function (yss, f) {
+            var ans = new Array();
+            for (var y in yss) {
+                if (yss.hasOwnProperty(y)) {
+                    ans.push(f(yss[y]));
+                }
+
+            }
+            return ans;
+        }
+
+        var break_out_month = function (entry) {
+            var date = new Date(entry.date);
+            const months = ['Jan', 'Feb', 'Mar', 'April', 'May', 'June', 'July', 'Aug',
+                 'Sept', 'Oct', 'Nov', 'Dec'];
+            //console.log(' Date: ' + entry.date + " Month : " + date.getMonth());
+            return months[date.getMonth()];
+        }
+
+
+        // Variables that capture state of the programme
+        var parsed_data = null;
+        var data = {};
+       
+        const data_loc = ""
+        var current_chart = null;
+
+        var zip_with_index = function (coll, f) {
+            var obj = [];
+            for (var i = 0; i < coll.length; i++) {
+                obj.push(f(i, coll[i]));
+            }
+            return obj;
+        }
+
+        var join_index = function (a, b) {
+            const months = ['Jan', 'Feb', 'Mar', 'April', 'May', 'June', 'July', 'Aug',
+                 'Sept', 'Oct', 'Nov', 'Dec'];
+            return { x: months[a], y: b };
+        }
+
+        var prepare_key = function (data, key) {
+            //console.log(key);
+            //console.log(data);
+            var filtered = _.filter(data, function (entry) { return entry.commodity == key && entry.mean != 'na' && entry.mean != 'NA'});
+            //console.log(filtered);
+            var xs = _.groupBy(filtered, function (entry) { return break_out_month(entry) });
+            //console.log(xs);
+            var to_data = _.curry(apply_across)(xs);
+            var get_values = function (coll) {
+                return _.map(coll, function (entry) { return entry.mean });
+            }
+            var get_values = function (f) { return to_data(function (s) { return f(s, 'mean') }) };
+            var max_vals = zip_with_index(_.map(get_values(_.max), 'mean'), join_index);
+            var min_vals = zip_with_index(_.map(get_values(_.min), 'mean'), join_index);
+            var avg_vals = zip_with_index(get_values(mean), join_index);
+ 
+            var obj = [{ values: max_vals, key: 'Max' }, { values: min_vals, key: 'Min' }, { values: avg_vals, key: 'Average' }];
+            return obj;
+        }
+
+        var get_crop_data = function(parsed_data, data, key, f) {
+            if (parsed_data == null) { // If we have never requested data
+                 $.get('http://127.0.0.1:5000/crops/monthly/all', function (data) {
+                    //console.log(data);  //The data is being received from the REST API
+                    parsed_data = data;
+                    if (data[key] == undefined) {
+                        // console.log(key); We are using the correct name to filter the data;
+                        data[key] = prepare_key(data, key);
+                        f(data[key]);
+                    }
+                    
+                    return data[key];
+                }, 'json');
+            }
+            else if (data[key] == undefined) {
+                data[key] = prepare_data(parsed_data, key);
+                f(data[key]);
+                return data[key];
+            }
+            else {
+                f(data[key]);
+                return data[key];
+            }
+        }
+
+        var handle_data = function (data) {
+            console.log('Outside of function: ');
+            console.log(data);
+            current_chart = nv.addGraph(function () {
+                console.log('Inside of function');
+                console.log(data);
+                var chart = nv.models.multiBarChart()
+                              .transitionDuration(350)
+                              .reduceXTicks(false)   //If 'false', every single x-axis tick label will be rendered.
+                              .rotateLabels(0)      //Angle to rotate x-axis labels.
+                              .showControls(true)   //Allow user to switch between 'Grouped' and 'Stacked' mode.
+                              .groupSpacing(0.1);    //Distance between each group of bars.
+                //Set the axis properties
+                
+
+                chart.yAxis
+                    .tickFormat(d3.format(',2f'));
+
+                d3.select('#barChart svg').datum(data).call(chart);
+                return chart;
+            });
+        }
+
+        
+        var plot_crop = function (value, key) {
+            var data = get_crop_data(parsed_data, data, key, handle_data);
+            
+        }
+
+
+    
+</script>
+
+<div class="grid">
+    <div class="row">
+        <!-- Place code for crop option panels here -->
+        <div class="span4">
+            <nav class="sidebar dark">
+                <ul>
+                    <li class="title">Crops</li>
+                    {% for key, value in crops.iteritems() %}
+                    <li id="{{value}}"><a onclick="plot_crop('#{{value}}', '{{key}}')" href="#">{{key}}</a></li>
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Code for charting area -->
+        <div id="barChart">
+            <svg style="width:1000px;height:800px;">
+
+            </svg>
+        </div>
+     </div>
+
+    <script>
+        var some_numbers = [1, 23, 4];
+        $.each(some_numbers, function (idx, value) { console.log(value)})
+    </script>
+
+    
+
+</div>
+
+{% endblock %}
